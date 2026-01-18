@@ -9,12 +9,12 @@ export default function NicheForm() {
   const [telegramError, setTelegramError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  const [platform, setPlatform] = useState("");
+  // ⬇️ FIX: default platform
+  const [platform, setPlatform] = useState("avito");
   const [query, setQuery] = useState("");
   const [result, setResult] = useState<any>(null);
   const [error, setError] = useState<string | null>(null);
 
-  // ⬇️ TELEGRAM GATE
   useEffect(() => {
     try {
       const tg = initTelegram();
@@ -29,12 +29,8 @@ export default function NicheForm() {
     }
   }, []);
 
-  // ⬇️ ПОКА НЕ ПОНЯЛИ, ЧТО С TELEGRAM — НИЧЕГО НЕ РЕНДЕРИМ
-  if (loading) {
-    return null;
-  }
+  if (loading) return null;
 
-  // ⬇️ ЕСЛИ НЕ TELEGRAM — СРАЗУ ВЫХОД
   if (telegramError) {
     return (
       <div className="min-h-screen flex items-center justify-center text-red-500">
@@ -44,17 +40,19 @@ export default function NicheForm() {
   }
 
   async function onCheck() {
-    if (!platform || !query) {
+    const cleanPlatform = platform.trim();
+    const cleanQuery = query.trim();
+
+    if (!cleanPlatform || !cleanQuery) {
       setError("Заполните все поля");
       return;
     }
 
     setError(null);
-    const data = await analyzeNiche(platform, query, initData!);
+    const data = await analyzeNiche(cleanPlatform, cleanQuery, initData!);
     setResult(data);
   }
 
-  // ⬇️ ФОРМА ПОКАЗЫВАЕТСЯ ТОЛЬКО ЕСЛИ TELEGRAM OK
   return (
     <div className="max-w-md mx-auto p-4 space-y-4">
       <h1 className="text-xl font-bold">Анализ ниши</h1>
@@ -66,7 +64,6 @@ export default function NicheForm() {
         value={platform}
         onChange={(e) => setPlatform(e.target.value)}
       >
-        <option value="">Площадка</option>
         <option value="avito">Avito</option>
         <option value="ozon">Ozon</option>
         <option value="wb">Wildberries</option>
@@ -74,7 +71,7 @@ export default function NicheForm() {
 
       <input
         className="w-full border p-2"
-        placeholder="iPhone 13"
+        placeholder="Куртка"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
       />
