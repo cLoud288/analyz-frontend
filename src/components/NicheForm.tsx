@@ -1,9 +1,61 @@
 "use client";
 
+import { useState } from "react";
 import { theme } from "@/lib/theme";
 import MetricsGrid from "./MetricsGrid";
 
+type Result = {
+  competition: string;
+  listings: number;
+  avg_price: number;
+  potential: string;
+};
+
 export default function NicheForm() {
+  const [platform, setPlatform] = useState("Avito");
+  const [query, setQuery] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [result, setResult] = useState<Result | null>(null);
+
+  async function handleAnalyze() {
+    if (!query.trim()) {
+      setError("Введите запрос");
+      return;
+    }
+
+    setError(null);
+    setLoading(true);
+    setResult(null);
+
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/analyze`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            platform,
+            query,
+          }),
+        }
+      );
+
+      if (!res.ok) {
+        throw new Error("Ошибка анализа");
+      }
+
+      const data = await res.json();
+      setResult(data);
+    } catch (e) {
+      setError("Не удалось выполнить анализ");
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div
       style={{
@@ -29,48 +81,39 @@ export default function NicheForm() {
 
         {/* Filters */}
         <div style={{ display: "grid", gap: 14 }}>
-          <div>
-            <label style={{ fontSize: 13, color: theme.muted }}>
-              Площадка
-            </label>
-            <select
-              style={{
-                width: "100%",
-                marginTop: 6,
-                padding: "10px 12px",
-                borderRadius: theme.radius,
-                background: theme.bg,
-                color: theme.text,
-                border: `1px solid ${theme.border}`,
-              }}
-            >
-              <option>Avito</option>
-              <option>WB</option>
-              <option>Ozon</option>
-            </select>
-          </div>
+          <select
+            value={platform}
+            onChange={(e) => setPlatform(e.target.value)}
+            style={{
+              padding: "10px",
+              borderRadius: theme.radius,
+              background: theme.bg,
+              color: theme.text,
+              border: `1px solid ${theme.border}`,
+            }}
+          >
+            <option>Avito</option>
+            <option>WB</option>
+            <option>Ozon</option>
+          </select>
 
-          <div>
-            <label style={{ fontSize: 13, color: theme.muted }}>
-              Запрос
-            </label>
-            <input
-              placeholder="Например: куртка"
-              style={{
-                width: "100%",
-                marginTop: 6,
-                padding: "10px 12px",
-                borderRadius: theme.radius,
-                background: theme.bg,
-                color: theme.text,
-                border: `1px solid ${theme.border}`,
-              }}
-            />
-          </div>
+          <input
+            placeholder="Например: куртка"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            style={{
+              padding: "10px",
+              borderRadius: theme.radius,
+              background: theme.bg,
+              color: theme.text,
+              border: `1px solid ${theme.border}`,
+            }}
+          />
 
           <button
+            onClick={handleAnalyze}
+            disabled={loading}
             style={{
-              marginTop: 10,
               padding: "12px",
               borderRadius: theme.radius,
               background: theme.primary,
@@ -78,14 +121,18 @@ export default function NicheForm() {
               border: "none",
               fontSize: 16,
               cursor: "pointer",
+              opacity: loading ? 0.7 : 1,
             }}
           >
-            Анализировать
+            {loading ? "Анализируем..." : "Анализировать"}
           </button>
+
+          {error && (
+            <div style={{ color: theme.danger }}>{error}</div>
+          )}
         </div>
 
-        {/* Results */}
-        <MetricsGrid />
+        {result && <MetricsGrid data={result} />}
       </div>
     </div>
   );
