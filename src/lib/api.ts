@@ -1,9 +1,3 @@
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
-
-if (!API_URL) {
-  throw new Error("NEXT_PUBLIC_API_URL is not defined");
-}
-
 async function safeJson(res: Response) {
   const text = await res.text();
   try {
@@ -19,6 +13,12 @@ export async function analyzeNiche(
   query: string,
   initData: string
 ) {
+  const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
+  if (!API_URL) {
+    throw new Error("NEXT_PUBLIC_API_URL is not defined");
+  }
+
   const res = await fetch(`${API_URL}/analyze`, {
     method: "POST",
     headers: {
