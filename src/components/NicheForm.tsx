@@ -1,6 +1,7 @@
 "use client";
 
 import { theme } from "@/lib/theme";
+import MetricsGrid from "./MetricsGrid";
 
 export default function NicheForm() {
   return (
@@ -14,76 +15,77 @@ export default function NicheForm() {
     >
       <div
         style={{
-          maxWidth: 420,
+          maxWidth: 640,
           margin: "0 auto",
-          background: theme.card,
+          background: theme.panel,
           borderRadius: theme.radius,
           padding: 20,
           border: `1px solid ${theme.border}`,
         }}
       >
-        <h1 style={{ fontSize: 28, marginBottom: 24 }}>Анализ ниши</h1>
+        <h1 style={{ fontSize: 26, marginBottom: 20 }}>
+          Анализ ниши
+        </h1>
 
-        {/* Площадка */}
-        <label style={{ fontSize: 14, color: theme.muted }}>
-          Площадка
-        </label>
-        <select
-          style={{
-            width: "100%",
-            marginTop: 6,
-            padding: "10px 12px",
-            borderRadius: theme.radius,
-            background: theme.bg,
-            color: theme.text,
-            border: `1px solid ${theme.border}`,
-          }}
-        >
-          <option>Avito</option>
-          <option>WB</option>
-          <option>Ozon</option>
-        </select>
+        {/* Filters */}
+        <div style={{ display: "grid", gap: 14 }}>
+          <div>
+            <label style={{ fontSize: 13, color: theme.muted }}>
+              Площадка
+            </label>
+            <select
+              style={{
+                width: "100%",
+                marginTop: 6,
+                padding: "10px 12px",
+                borderRadius: theme.radius,
+                background: theme.bg,
+                color: theme.text,
+                border: `1px solid ${theme.border}`,
+              }}
+            >
+              <option>Avito</option>
+              <option>WB</option>
+              <option>Ozon</option>
+            </select>
+          </div>
 
-        {/* Запрос */}
-        <label
-          style={{
-            fontSize: 14,
-            color: theme.muted,
-            marginTop: 16,
-            display: "block",
-          }}
-        >
-          Запрос
-        </label>
-        <input
-          placeholder="Например: куртка"
-          style={{
-            width: "100%",
-            marginTop: 6,
-            padding: "10px 12px",
-            borderRadius: theme.radius,
-            background: theme.bg,
-            color: theme.text,
-            border: `1px solid ${theme.border}`,
-          }}
-        />
+          <div>
+            <label style={{ fontSize: 13, color: theme.muted }}>
+              Запрос
+            </label>
+            <input
+              placeholder="Например: куртка"
+              style={{
+                width: "100%",
+                marginTop: 6,
+                padding: "10px 12px",
+                borderRadius: theme.radius,
+                background: theme.bg,
+                color: theme.text,
+                border: `1px solid ${theme.border}`,
+              }}
+            />
+          </div>
 
-        {/* Кнопка */}
-        <button
-          style={{
-            width: "100%",
-            marginTop: 20,
-            padding: "12px",
-            borderRadius: theme.radius,
-            background: theme.primary,
-            color: "white",
-            border: "none",
-            fontSize: 16,
-            cursor: "pointer",
-          }}
-        >
-          Проверить нишу
-        </button>
+          <button
+            style={{
+              marginTop: 10,
+              padding: "12px",
+              borderRadius: theme.radius,
+              background: theme.primary,
+              color: "white",
+              border: "none",
+              fontSize: 16,
+              cursor: "pointer",
+            }}
+          >
+            Анализировать
+          </button>
+        </div>
+
+        {/* Results */}
+        <MetricsGrid />
       </div>
     </div>
   );

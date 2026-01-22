@@ -1,5 +1,6 @@
 export const theme = {
   bg: "#0b1220",
+  panel: "#0f172a",
   card: "#111827",
   border: "#1f2937",
   primary: "#3b82f6",
