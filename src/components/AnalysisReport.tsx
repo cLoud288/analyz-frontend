@@ -1,38 +1,66 @@
 type Props = {
-  data: any;
+  data: {
+    platform: string;
+    query: string;
+    competition: string;
+    competition_score: number;
+    listings: number;
+    sellers: number;
+    avg_price: number;
+    median_price: number;
+    potential: string;
+    risk: string;
+    recommendation: string;
+  };
 };
 
 export default function AnalysisReport({ data }: Props) {
-  const score = data.competition_score;
-
   return (
     <div className="report">
-      <h2>🔍 {data.query} · {data.platform}</h2>
+      <div className="header">
+        <span className="badge">{data.platform}</span>
+        <h2>{data.query}</h2>
+      </div>
 
       <section>
-        <h3>📊 Конкуренция</h3>
+        <h3>Конкуренция</h3>
         <div className="progress">
-          <div className="progress-bar" style={{ width: `${score}%` }} />
+          <div
+            className="progress-bar"
+            style={{ width: `${data.competition_score}%` }}
+          />
         </div>
-        <p>{data.competition} ({score}%)</p>
+        <p>
+          {data.competition} · {data.competition_score}%
+        </p>
       </section>
 
-      <section>
-        <h3>📦 Рынок</h3>
-        <p>Объявлений: <b>{data.listings}</b></p>
-        <p>Продавцов: <b>{data.sellers}</b></p>
+      <section className="grid">
+        <div className="card">
+          <span>Объявлений</span>
+          <b>{data.listings}</b>
+        </div>
+        <div className="card">
+          <span>Продавцов</span>
+          <b>{data.sellers}</b>
+        </div>
+        <div className="card">
+          <span>Средняя цена</span>
+          <b>{data.avg_price} ₽</b>
+        </div>
+        <div className="card">
+          <span>Медиана</span>
+          <b>{data.median_price} ₽</b>
+        </div>
       </section>
 
-      <section>
-        <h3>💰 Цены</h3>
-        <p>Средняя: <b>{data.avg_price} ₽</b></p>
-        <p>Медиана: <b>{data.median_price} ₽</b></p>
-      </section>
-
-      <section>
-        <h3>⚠️ Риск</h3>
-        <p><b>{data.risk}</b></p>
+      <section className="alert">
+        <b>Риск: {data.risk}</b>
         <p>{data.recommendation}</p>
+      </section>
+
+      <section className="potential">
+        Потенциал ниши: <b>{data.potential}</b>
       </section>
     </div>
   );

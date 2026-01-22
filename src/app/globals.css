@@ -1,51 +1,133 @@
-@import "tailwindcss";
-
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: #0b1220;
+  color: #e5e7eb;
+  font-family: -apple-system, BlinkMacSystemFont, Inter, sans-serif;
 }
 
-
-.report {
-  background: #0f172a;
-  color: #e5e7eb;
+.container {
   padding: 16px;
+  max-width: 420px;
+  margin: 0 auto;
+}
+
+.title {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.primary,
+.secondary {
+  width: 100%;
+  padding: 14px;
   border-radius: 12px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.primary {
+  background: #6366f1;
+  color: white;
+}
+
+.secondary {
+  background: #1f2937;
+  color: #e5e7eb;
   margin-top: 16px;
 }
 
-.report section {
-  margin-top: 12px;
+.loading {
+  text-align: center;
+}
+
+.spinner {
+  width: 36px;
+  height: 36px;
+  border: 4px solid #334155;
+  border-top: 4px solid #6366f1;
+  border-radius: 50%;
+  margin: 0 auto 12px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.report {
+  background: #0f172a;
+  padding: 16px;
+  border-radius: 16px;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.badge {
+  background: #1e293b;
+  padding: 4px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+}
+
+section {
+  margin-top: 16px;
 }
 
 .progress {
   background: #1e293b;
   border-radius: 8px;
-  overflow: hidden;
   height: 10px;
+  overflow: hidden;
+  margin: 6px 0;
 }
 
 .progress-bar {
-  background: linear-gradient(90deg, #22c55e, #ef4444);
   height: 100%;
+  background: linear-gradient(90deg, #22c55e, #ef4444);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.card {
+  background: #020617;
+  padding: 12px;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.card span {
+  font-size: 12px;
+  color: #94a3b8;
+}
+
+.alert {
+  background: #1f2937;
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.potential {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 15px;
+}
+
+.error {
+  color: #ef4444;
+  text-align: center;
 }
