@@ -7,25 +7,22 @@ export default function NicheForm() {
   const [initData, setInitData] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+    useEffect(() => {
     const tg = (window as any)?.Telegram?.WebApp;
 
+    console.log("TG:", tg);
+
     if (!tg) {
-      setError("Откройте приложение из Telegram");
-      return;
+        setError("Telegram SDK не загружен");
+        return;
     }
 
     tg.ready();
     tg.expand();
 
-    if (!tg.initData) {
-      setError("Нет initData от Telegram");
-      return;
-    }
-
     setInitData(tg.initData);
     setReady(true);
-  }, []);
+    }, []);
 
   if (error) {
     return (
