@@ -1,9 +1,6 @@
-import dynamic from "next/dynamic";
+"use client";
 
-const NicheForm = dynamic(
-  () => import("@/components/NicheForm"),
-  { ssr: false }
-);
+import NicheForm from "@/components/NicheForm";
 
 export default function Home() {
   return <NicheForm />;
