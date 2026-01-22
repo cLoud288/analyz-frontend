@@ -1,35 +1,90 @@
 "use client";
 
+import { theme } from "@/lib/theme";
+
 export default function NicheForm() {
   return (
     <div
       style={{
-        background: "#0f172a",
-        color: "white",
-        padding: 20,
         minHeight: "100vh",
+        background: theme.bg,
+        padding: 16,
+        color: theme.text,
       }}
     >
-      <h1>Анализ ниши</h1>
+      <div
+        style={{
+          maxWidth: 420,
+          margin: "0 auto",
+          background: theme.card,
+          borderRadius: theme.radius,
+          padding: 20,
+          border: `1px solid ${theme.border}`,
+        }}
+      >
+        <h1 style={{ fontSize: 28, marginBottom: 24 }}>Анализ ниши</h1>
 
-      <div style={{ marginTop: 20 }}>
-        <label>Площадка</label>
-        <select style={{ display: "block", width: "100%", marginTop: 8 }}>
+        {/* Площадка */}
+        <label style={{ fontSize: 14, color: theme.muted }}>
+          Площадка
+        </label>
+        <select
+          style={{
+            width: "100%",
+            marginTop: 6,
+            padding: "10px 12px",
+            borderRadius: theme.radius,
+            background: theme.bg,
+            color: theme.text,
+            border: `1px solid ${theme.border}`,
+          }}
+        >
           <option>Avito</option>
           <option>WB</option>
           <option>Ozon</option>
         </select>
-      </div>
 
-      <div style={{ marginTop: 20 }}>
-        <label>Запрос</label>
+        {/* Запрос */}
+        <label
+          style={{
+            fontSize: 14,
+            color: theme.muted,
+            marginTop: 16,
+            display: "block",
+          }}
+        >
+          Запрос
+        </label>
         <input
-          style={{ display: "block", width: "100%", marginTop: 8 }}
           placeholder="Например: куртка"
+          style={{
+            width: "100%",
+            marginTop: 6,
+            padding: "10px 12px",
+            borderRadius: theme.radius,
+            background: theme.bg,
+            color: theme.text,
+            border: `1px solid ${theme.border}`,
+          }}
         />
-      </div>
 
-      <button style={{ marginTop: 20 }}>Проверить</button>
+        {/* Кнопка */}
+        <button
+          style={{
+            width: "100%",
+            marginTop: 20,
+            padding: "12px",
+            borderRadius: theme.radius,
+            background: theme.primary,
+            color: "white",
+            border: "none",
+            fontSize: 16,
+            cursor: "pointer",
+          }}
+        >
+          Проверить нишу
+        </button>
+      </div>
     </div>
   );
 }
