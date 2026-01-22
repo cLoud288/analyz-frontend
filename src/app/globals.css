@@ -24,3 +24,28 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+
+.report {
+  background: #0f172a;
+  color: #e5e7eb;
+  padding: 16px;
+  border-radius: 12px;
+  margin-top: 16px;
+}
+
+.report section {
+  margin-top: 12px;
+}
+
+.progress {
+  background: #1e293b;
+  border-radius: 8px;
+  overflow: hidden;
+  height: 10px;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, #22c55e, #ef4444);
+  height: 100%;
+}
